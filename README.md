@@ -75,12 +75,6 @@ DATABASES = {
 
 ### 5️⃣ Setup Environment Variables
 
-Install `python-decouple`:
-
-```bash
-pip install python-decouple
-```
-
 Create a `.env` file in your project root:
 
 **.env**

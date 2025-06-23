@@ -53,9 +53,9 @@ pip install -r requirements.txt
 Create a PostgreSQL database and user:
 
 ```sql
-CREATE DATABASE weatherproj_db;
-CREATE USER weatherapi WITH PASSWORD '1234';
-GRANT ALL ON SCHEMA public TO weatherapi;
+CREATE DATABASE weatherwave_db;
+CREATE USER weatheruser WITH PASSWORD 'weatherpass';
+GRANT ALL ON SCHEMA public TO weatheruser;
 ```
 
 Update your `settings.py`:
@@ -64,22 +64,39 @@ Update your `settings.py`:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'weatherproj_db',
-        'USER': 'weatherapi',
-        'PASSWORD': '1234',
+        'NAME': 'weatherwave_db',
+        'USER': 'weatheruser',
+        'PASSWORD': 'weatherpass',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 ```
 
-### 5️⃣ Add OpenWeatherMap API Key
+### 5️⃣ Setup Environment Variables
 
-Get a free API key from [OpenWeatherMap](https://openweathermap.org/api) and add it in `settings.py`:
+Install `python-decouple`:
+
+```bash
+pip install python-decouple
+```
+
+Create a `.env` file in your project root:
+
+**.env**
+
+```env
+OPENWEATHER_API_KEY=your_actual_api_key_here
+```
+
+Update your `settings.py`:
 
 ```python
-OPENWEATHER_API_KEY = 'your_api_key_here'
+from decouple import config
+OPENWEATHER_API_KEY = config('OPENWEATHER_API_KEY')
 ```
+
+> ⚠️ Add `.env` to your `.gitignore` file to avoid committing secrets.
 
 ### 6️⃣ Apply Migrations
 
@@ -159,12 +176,11 @@ GET /api/weather/New%20York/
 ## 🛠️ Project Structure
 
 ```
-weather_proj/
+weatherwave/
 ├── weatherwave/         # Project settings
 │   ├── settings.py
 │   ├── asgi.py
 │   └── urls.py
-│   └── wsig.py
 ├── weather/             # App for weather logic
 │   ├── views.py
 │   ├── utils.py
@@ -201,7 +217,6 @@ Send: { "city": "New York" }
 ```
 
 ---
-
 
 ## 🙋‍♂️ Author
 

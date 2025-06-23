@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -106,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # OpenWeather API Key
-OPENWEATHER_API_KEY = "c276d675af04c774b16b71dfa657f861"
+OPENWEATHER_API_KEY = config('OPENWEATHER_API_KEY')
 
 # Channels
 ASGI_APPLICATION = "weatherwave.asgi.application"
